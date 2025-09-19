@@ -8,4 +8,5 @@ import com.example.mySpringProject.entities.Adventure;
 public interface AdventureRepository extends CrudRepository<Adventure, Integer> {
     public List<Adventure> findByCountry(String country);
     public List<Adventure> findByState(String state);
+
 }
