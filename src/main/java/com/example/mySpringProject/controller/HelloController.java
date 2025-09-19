@@ -16,4 +16,5 @@ public class HelloController {
     public String heroPage(@PathVariable String hero) {
         return "This is page " + hero;
     }
+
 }
