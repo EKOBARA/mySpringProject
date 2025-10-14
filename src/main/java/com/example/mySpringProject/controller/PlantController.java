@@ -36,6 +36,26 @@ public class PlantController {
         return this.plantRepository.findById(id);
     }
 
+    @GetMapping("/plants/search")
+    public List<Plant> searchPlants(
+            @RequestParam(name="hasFruit", required=false) Boolean hasFruit,
+            @RequestParam(name="maxQuantity", required=false) Integer quantity
+    ) {
+        if (hasFruit != null && quantity != null) {
+            if(hasFruit) {
+                return this.plantRepository.findByHasFruitTrueAndQuantityLessThan(quantity);
+            } else {
+                return this.plantRepository.findByHasFruitFalseAndQuantityLessThan(quantity);
+            }
+        } else if (hasFruit != null && !hasFruit) {
+            return this.plantRepository.findByHasFruitFalse();
+        } else if (quantity != null) {
+            return this.plantRepository.findByQuantityLessThan(quantity);
+        } else {
+            return new ArrayList();
+        }
+    }
+
     @PostMapping("/plants")
     public Plant createNewPlant(@RequestBody Plant plant) {
         Plant newPlant = this.plantRepository.save(plant);
